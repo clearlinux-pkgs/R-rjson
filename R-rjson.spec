@@ -4,16 +4,25 @@
 #
 Name     : R-rjson
 Version  : 0.2.15
-Release  : 22
+Release  : 23
 URL      : http://cran.r-project.org/src/contrib/rjson_0.2.15.tar.gz
 Source0  : http://cran.r-project.org/src/contrib/rjson_0.2.15.tar.gz
 Summary  : JSON for R
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: R-rjson-lib
 BuildRequires : clr-R-helpers
 
 %description
 No detailed description available
+
+%package lib
+Summary: lib components for the R-rjson package.
+Group: Libraries
+
+%description lib
+lib components for the R-rjson package.
+
 
 %prep
 %setup -q -c -n rjson
@@ -23,13 +32,21 @@ No detailed description available
 %install
 rm -rf %{buildroot}
 export LANG=C
+export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -flto -fno-semantic-interposition "
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export LDFLAGS="$LDFLAGS  -Wl,-z -Wl,relro"
 mkdir -p %{buildroot}/usr/lib64/R/library
 R CMD INSTALL --install-tests --build  -l %{buildroot}/usr/lib64/R/library rjson
 %{__rm} -rf %{buildroot}%{_datadir}/R/library/R.css
 %check
+export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=intel.com,localhost
+export no_proxy=localhost
 export _R_CHECK_FORCE_SUGGESTS_=false
 R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library rjson
 
@@ -59,7 +76,6 @@ R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/lib
 /usr/lib64/R/library/rjson/help/rjson.rdx
 /usr/lib64/R/library/rjson/html/00Index.html
 /usr/lib64/R/library/rjson/html/R.css
-/usr/lib64/R/library/rjson/libs/rjson.so
 /usr/lib64/R/library/rjson/libs/symbols.rds
 /usr/lib64/R/library/rjson/rpc_server/server.r
 /usr/lib64/R/library/rjson/rpc_server/some_script.r
@@ -75,3 +91,7 @@ R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/lib
 /usr/lib64/R/library/rjson/unittests/test.tojson.r
 /usr/lib64/R/library/rjson/unittests/test.twitter.r
 /usr/lib64/R/library/rjson/unittests/test.unicode.r
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/R/library/rjson/libs/rjson.so
