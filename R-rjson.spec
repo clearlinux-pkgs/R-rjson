@@ -4,7 +4,7 @@
 #
 Name     : R-rjson
 Version  : 0.2.15
-Release  : 29
+Release  : 30
 URL      : http://cran.r-project.org/src/contrib/rjson_0.2.15.tar.gz
 Source0  : http://cran.r-project.org/src/contrib/rjson_0.2.15.tar.gz
 Summary  : JSON for R
@@ -28,12 +28,15 @@ lib components for the R-rjson package.
 %setup -q -c -n rjson
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1484547841
+export SOURCE_DATE_EPOCH=1492801280
 
 %install
 rm -rf %{buildroot}
-export SOURCE_DATE_EPOCH=1484547841
+export SOURCE_DATE_EPOCH=1492801280
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -49,7 +52,7 @@ R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
 R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library rjson
 
@@ -59,6 +62,7 @@ R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/lib
 /usr/lib64/R/library/rjson/DESCRIPTION
 /usr/lib64/R/library/rjson/INDEX
 /usr/lib64/R/library/rjson/Meta/Rd.rds
+/usr/lib64/R/library/rjson/Meta/features.rds
 /usr/lib64/R/library/rjson/Meta/hsearch.rds
 /usr/lib64/R/library/rjson/Meta/links.rds
 /usr/lib64/R/library/rjson/Meta/nsInfo.rds
