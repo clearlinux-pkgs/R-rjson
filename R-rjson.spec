@@ -4,7 +4,7 @@
 #
 Name     : R-rjson
 Version  : 0.2.20
-Release  : 52
+Release  : 53
 URL      : https://cran.r-project.org/src/contrib/rjson_0.2.20.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/rjson_0.2.20.tar.gz
 Summary  : JSON for R
@@ -33,10 +33,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1594998319
+export SOURCE_DATE_EPOCH=1595001133
 
 %install
-export SOURCE_DATE_EPOCH=1594998319
+export SOURCE_DATE_EPOCH=1595001133
 rm -rf %{buildroot}
 export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
