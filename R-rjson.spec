@@ -4,7 +4,7 @@
 #
 Name     : R-rjson
 Version  : 0.2.21
-Release  : 75
+Release  : 76
 URL      : https://cran.r-project.org/src/contrib/rjson_0.2.21.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/rjson_0.2.21.tar.gz
 Summary  : JSON for R
